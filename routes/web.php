@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\TagController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,8 +30,10 @@ Route::middleware(['auth'])
         // - il nome della rotta ->name("dashboard") diventa ->name("admin.dashboard")
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-        // Admin Post CRUD
-        Route::resource('posts', EventController::class);
+        // Admin Event CRUD
+        Route::resource('events', EventController::class);
+        // Admin Tag CRUD
+        Route::resource('tags', TagController::class);
     });
 
 require __DIR__ . '/auth.php';
