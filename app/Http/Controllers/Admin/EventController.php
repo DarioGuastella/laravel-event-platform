@@ -18,7 +18,7 @@ class EventController extends Controller
                 "name" => "required|min:5|max:50",
                 "date" => "required",
                 "available_tickets" => "max:500",
-                "tags" => ""
+
             ],
             [
                 'title.required' => 'Il titolo è necessario',
@@ -108,12 +108,14 @@ class EventController extends Controller
      */
     public function update(EventRequest $request, Event $event)
     {
-        $data = $request->all();
-        $dati_validati = $this->validation($data);
-        if ($request->tags) {
-            $event->tags()->sync($request->tags);
+        $data = $request->validated();
+        // $dati_validati = $this->validation($data);
+        $event->update($data);
+        if ($request->filled("tags")) {
+            $data["tags"] = array_filter($data["tags"]) ? $data["tags"] : [];  //Livecoding con Luca
+            $event->tags()->sync($data["tags"]);
         }
-        $event->update($dati_validati);
+
         return redirect()->route("admin.events.show", $event->id);
     }
 
