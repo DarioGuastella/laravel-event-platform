@@ -25,13 +25,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call(UserSeeder::class, false, compact("num_utenti"));
         $this->call(EventSeeder::class, false, compact("num_eventi", "num_utenti"));
-
+        $this->call(TagSeeder::class);
         // $this->call(EventSeeder::class, false, compact("eventi"));
 
-        $this->call([
-            UserSeeder::class,
-            EventSeeder::class,
-            TagSeeder::class
-        ]);
+
     }
 }
