@@ -42,6 +42,15 @@
                     <label for="available_tickets" class="form-label">available_tickets</label>
                     <input type="text" class="form-control" id="available_tickets" name="available_tickets">
                 </div>
+                <div class="mb-3">
+                    <label for="tag" class="form-label">Tag</label>
+                    <select multiple name="tags[]" id="" class="form-select">
+                        <option value="">nessun tag</option>
+                        @foreach ($tags as $tag)
+                            <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
 
                 <button type="submit" class="btn btn-primary">Inserisci</button>
             </form>

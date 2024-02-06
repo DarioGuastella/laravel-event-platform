@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Http\Requests\EventRequest;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Validator;
 
 class EventController extends Controller
@@ -16,7 +17,8 @@ class EventController extends Controller
             [
                 "name" => "required|min:5|max:50",
                 "date" => "required",
-                "available_tickets" => "max:500"
+                "available_tickets" => "max:500",
+                "tags" => ""
             ],
             [
                 'title.required' => 'Il titolo è necessario',
@@ -34,8 +36,9 @@ class EventController extends Controller
     public function index()
     {
         $events = Event::all();
+        $tags = Tag::all();
 
-        return view("admin.events.index", compact("events"));
+        return view("admin.events.index", compact("events", "tags"));
     }
 
     /**
@@ -45,7 +48,8 @@ class EventController extends Controller
      */
     public function create()
     {
-        return view("admin.events.create");
+        $tags = Tag::all();
+        return view("admin.events.create", compact("tags"));
     }
 
     /**
@@ -64,6 +68,10 @@ class EventController extends Controller
         $evento->fill($dati_validati);
         $evento->save();
 
+        if ($request->tags) {
+            $evento->tags()->attach($request->tags);
+        }
+
         return redirect()->route("admin.events.show", $evento->id);
     }
 
@@ -75,7 +83,8 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        return view("admin.events.show", compact("event"));
+        $tags = Tag::all();
+        return view("admin.events.show", compact("event", "tags"));
     }
 
     /**
@@ -86,7 +95,8 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        return view("admin.events.edit", compact("event"));
+        $tags = Tag::all();
+        return view("admin.events.edit", compact("event", "tags"));
     }
 
     /**
@@ -101,7 +111,6 @@ class EventController extends Controller
         $data = $request->all();
         $dati_validati = $this->validation($data);
         $event->update($dati_validati);
-
         return redirect()->route("admin.events.show", $event->id);
     }
 

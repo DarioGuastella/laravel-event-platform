@@ -26,7 +26,8 @@ class EventRequest extends FormRequest
         return [
             "name" => ["required", "min:5", "max:50"],
             "date" => "",
-            "available_tickets" => ["nullable", "required"]
+            "available_tickets" => ["nullable", "required"],
+            "tags" => ["exists:tags,id"]
         ];
     }
 }
