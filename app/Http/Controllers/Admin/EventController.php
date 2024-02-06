@@ -110,6 +110,9 @@ class EventController extends Controller
     {
         $data = $request->all();
         $dati_validati = $this->validation($data);
+        if ($request->tags) {
+            $event->tags()->sync($request->tags);
+        }
         $event->update($dati_validati);
         return redirect()->route("admin.events.show", $event->id);
     }

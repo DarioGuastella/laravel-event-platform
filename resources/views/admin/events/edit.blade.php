@@ -15,9 +15,9 @@
             @endif
         </div>
         <div class="row">
-            <form action="{{ route('admin.events.store') }}" method="POST">
+            <form action="{{ route('admin.events.update', $event->id) }}" method="POST">
                 @csrf
-                {{-- title description thumb price series sale_date type --}}
+                @method('PUT')
                 <div class="mb-3">
                     <label for="name" class="form-label">name</label>
                     <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
