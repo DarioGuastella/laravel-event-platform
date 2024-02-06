@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
      *
      * @return void
      */
-    public function run(Faker $faker, $num_utenti = 1)
+    public function run(Faker $faker, $num_utenti = 2)
     {
         // $newUser = new User();
         // $newUser->name = "Admin";

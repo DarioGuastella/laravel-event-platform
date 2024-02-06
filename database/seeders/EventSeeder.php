@@ -14,7 +14,7 @@ class EventSeeder extends Seeder
      *
      * @return void
      */
-    public function run(Faker $faker,  $num_eventi, $num_utenti) //funziona se metto $num_eventu = 3 ad esempio
+    public function run($num_eventi, $num_utenti, Faker $faker) //funziona se metto $num_eventu = 3 ad esempio
     {
         for ($i = 0; $i < $num_eventi; $i++) {
             $newEvent = new Event();
