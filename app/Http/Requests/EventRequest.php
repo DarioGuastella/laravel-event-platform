@@ -31,3 +31,7 @@ class EventRequest extends FormRequest
         ];
     }
 }
+// [
+//     'tags'         => 'present|array',
+//     'tags.*'       => 'filled|max:255|exists:tags,id'
+// ]
