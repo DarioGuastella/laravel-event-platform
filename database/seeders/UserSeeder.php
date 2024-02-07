@@ -28,8 +28,8 @@ class UserSeeder extends Seeder
             $newUser = new User();
             $newUser->name = $faker->name();
             $newUser->email = $faker->email();
-            $newUser->password =
-                $newUser->save();
+            $newUser->password = Hash::make("password");
+            $newUser->save();
         }
     }
 }
