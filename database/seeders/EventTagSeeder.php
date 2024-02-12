@@ -19,15 +19,17 @@ class EventTagSeeder extends Seeder
     public function run(Faker $faker)
     {
         for ($i = 0; $i < 100; $i++) {
+            $eventId = $faker->randomElement($this->getEventID());
+            $tagId = $faker->randomElement($this->getTagID());
             $EventsTags = [
                 [
-                    "event_id" => $faker->randomElement($this->getEventID()),
-                    "tag_id" => $faker->randomElement($this->getTagID())
+                    "event_id" => $eventId,
+                    "tag_id" => $tagId
                 ]
             ];
 
             foreach ($EventsTags as $EventTag) {
-                DB::table('event_tag')->insert($EventTag);
+                DB::table('event_tag')->updateOrInsert($EventTag);
             }
         }
     }
