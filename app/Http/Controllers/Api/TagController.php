@@ -21,7 +21,7 @@ class TagController extends Controller
 
     public function show($id)
     {
-        $event = Tag::all()->find($id);
+        $event = Tag::with('events')->find($id);
         return response()->json([
             "success" => $event ? true : false,
             "payload" => $event ? $event : "Nessun evento corrispondente all'id"
