@@ -18,7 +18,7 @@ class EventTagSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $EventsTags = [
                 [
                     "event_id" => $faker->randomElement($this->getEventID()),
