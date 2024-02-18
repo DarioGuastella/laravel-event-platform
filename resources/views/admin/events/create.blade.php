@@ -18,7 +18,7 @@
         date
         available_tickets
         <div class="row">
-            <form action="{{ route('admin.events.store') }}" method="POST">
+            <form action="{{ route('admin.events.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 {{-- title description thumb price series sale_date type --}}
                 <div class="mb-3">
@@ -35,6 +35,14 @@
                     <input type="text" class="form-control @error('date') is-invalid @enderror" id="date"
                         name="date">
                     @error('date')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="img" class="form-label">Immagine dell'evento</label>
+                    <input type="file" class="form-control @error('img') is-invalid @enderror" id="img"
+                        name="img" placeholder="Inserisci l'immagine dell'evento" value="{{ old('img') }}">
+                    @error('img')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

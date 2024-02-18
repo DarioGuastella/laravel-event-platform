@@ -8,6 +8,9 @@
                     <div class="card">
                         <div class="card-header">{{ $event->name }}</div>
                         <div class="card-body">{{ $event->date }}</div>
+                        @if ($event->img)
+                            <img src="{{ asset('storage/' . $event->img) }}" class="card-img-top" alt="{{ $event->name }}">
+                        @endif
                         <div class="card-body">{{ $event->available_tickets }}</div>
                         <div class="card-subtitle mb-2 text-muted pt-2">
                             @if (count($event->tags) > 0)

@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event;
-use App\Http\Requests\EventRequest;
+use App\Http\Requests\StoreEventRequest;
+use App\Http\Requests\UpdateEventRequest;
 use App\Models\Tag;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class EventController extends Controller
@@ -58,10 +60,12 @@ class EventController extends Controller
      * @param  \App\Http\Requests\StoreEventRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(EventRequest $request)
+    public function store(StoreEventRequest $request)
     {
         $data = $request->all();
         $dati_validati = $this->validation($data);
+        $percorso = Storage::disk("public")->put('/uploads', $request['img']);
+        $dati_validati["img"] = $percorso;
 
         $evento = new Event();
 
@@ -106,10 +110,19 @@ class EventController extends Controller
      * @param  \App\Models\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function update(EventRequest $request, Event $event)
+    public function update(UpdateEventRequest $request, Event $event)
     {
-        $data = $request->validated();
-        // $dati_validati = $this->validation($data);
+        $data = $request->all();
+
+        if ($request->hasFile("img")) {
+
+            if ($event->img) {
+                Storage::disk("public")->delete($event->img);
+            }
+            $percorso = Storage::disk("public")->put('/uploads', $request['img']);
+            $data["img"] = $percorso;
+        }
+
         $event->update($data);
         if ($request->filled("tags")) {
             $data["tags"] = array_filter($data["tags"]) ? $data["tags"] : [];  //Livecoding con Luca

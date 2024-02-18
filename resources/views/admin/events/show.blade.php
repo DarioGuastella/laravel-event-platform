@@ -3,7 +3,10 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <h2>{{ $event->title }}</h2>
+            <h2>{{ $event->name }}</h2>
+            @if ($event->img)
+                <img src="{{ asset('storage/' . $event->img) }}" class="card-img-top w-50" alt="{{ $event->name }}">
+            @endif
         </div>
         <div class="row">
             <p>{{ $event->date }}</p>

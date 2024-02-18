@@ -12,7 +12,9 @@ class Event extends Model
     protected $fillable = [
         "name",
         "date",
-        "available_tickets"
+        "img",
+        "available_tickets",
+
     ];
 
     public function user()

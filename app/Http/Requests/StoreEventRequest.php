@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\File;
 
-class EventRequest extends FormRequest
+class StoreEventRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,6 +28,7 @@ class EventRequest extends FormRequest
             "name" => ["required", "min:5", "max:50"],
             "date" => "",
             "available_tickets" => ["required"],
+            "img" => [File::image()->min("1")->max("2000")],
             "tags" => []
         ];
     }
